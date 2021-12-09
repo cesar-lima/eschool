@@ -1,0 +1,35 @@
+import { useEffect, useState } from "react";
+import { CardGroup } from "reactstrap"
+import { CardComponent } from "../components/Card"
+import { FooterComponent } from "../components/Footer"
+import { NavBar } from "../components/NavBar"
+import api from "../services/api";
+
+interface News{
+    id: string;
+    titulo: string;
+    subtitulo: string;
+    imagem: string;
+}
+
+export function Vestibulares() {
+    const [noticias, setNoticia] = useState<News[]>([]);
+    useEffect(() => {
+        api.get<{data: News[]}>('api/news/category/vestibulares', {})
+        .then(response => {
+            setNoticia(response.data.data);
+        })
+    }, [])
+
+    return(
+        <div>
+            <NavBar />
+            <CardGroup>
+                {noticias.map(noticia => (
+                    <CardComponent key={noticia.id} data={noticia} />
+                ))}
+            </CardGroup> 
+            <FooterComponent/>
+        </div>
+    );
+}

@@ -1,0 +1,26 @@
+.formCooperacao{
+    padding: 80px;
+
+    .txtCooperacao{
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s
+    }
+
+    .btnSub{
+        display: flex;
+        margin: 155px auto;
+        background-color: transparent;
+        border-radius: 40px;
+        color: black;
+    }
+}

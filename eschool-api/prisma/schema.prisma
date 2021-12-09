@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model TipoUsuario {
+  id       Int       @id @default(autoincrement())
+  nome     String    @db.VarChar(45)
+  usuarios Usuario[]
+
+  @@map("tipo_usuario")
+}
+
+model Usuario {
+  id               Int          @id @default(autoincrement())
+  nome             String       @db.VarChar(45)
+  sobrenome        String       @db.VarChar(45)
+  celular          String       @db.VarChar(11)
+  email            String       @unique @db.VarChar(50)
+  senha            String       @db.VarChar(400)
+  ativo            Boolean      @default(true)
+  data_criacao     DateTime     @default(now())
+  data_atualizacao DateTime     @default(now())
+  tipo_usuario     TipoUsuario  @relation(fields: [id_tipo_usuario], references: [id])
+  id_tipo_usuario  Int          @db.Int
+  cooperacoes      Cooperacao[]
+  noticias         Noticia[]
+  comentarios      Comentario[]
+
+  @@map("usuario")
+}
+
+model Cooperacao {
+  id                   Int      @id @default(autoincrement())
+  data                 DateTime @default(now())
+  texto                String   @db.LongText
+  usuario_visitante    Usuario  @relation(fields: [id_usuario_visitante], references: [id])
+  id_usuario_visitante Int      @db.Int
+
+  @@map("cooperacao")
+}
+
+model Categoria {
+  id             Int       @id @default(autoincrement())
+  nome_categoria String    @db.VarChar(45)
+  noticias       Noticia[]
+
+  @@map("categoria")
+}
+
+model Noticia {
+  id                Int          @id @default(autoincrement())
+  titulo            String       @db.VarChar(600)
+  subtitulo         String       @db.VarChar(600)
+  texto             String       @db.LongText
+  data_criacao      DateTime     @default(now())
+  data_atualizacao  DateTime     @default(now())
+  ativo             Boolean      @default(true)
+  imagem            String       @db.LongText
+  rascunho          Boolean      @default(true)
+  categoria         Categoria    @relation(fields: [id_categoria], references: [id])
+  id_categoria      Int          @db.Int
+  editor            Usuario      @relation(fields: [id_usuario_editor], references: [id])
+  id_usuario_editor Int          @db.Int
+  comentarios       Comentario[]
+  visitas           Visitas[]
+
+  @@map("noticia")
+}
+
+model Comentario {
+  id                   Int      @id @default(autoincrement())
+  texto                String   @db.LongText
+  data_criacao         DateTime @default(now())
+  noticia              Noticia  @relation(fields: [id_noticia], references: [id])
+  id_noticia           Int      @db.Int
+  visitante            Usuario  @relation(fields: [id_usuario_visitante], references: [id])
+  id_usuario_visitante Int      @db.Int
+
+  @@map("comentario")
+}
+
+model Visitas {
+  id         Int     @id @default(autoincrement())
+  ip_visita  String  @db.VarChar(30)
+  noticia    Noticia @relation(fields: [id_noticia], references: [id])
+  id_noticia Int     @db.Int
+
+  @@map("visitas")
+}

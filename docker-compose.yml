@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: eschool
+      MYSQL_DATABASE: eschool
+    ports:
+      - "3307:3306"
+
+  api:
+    depends_on:
+      - db
+    container_name: eschool-api
+    build:
+      context: ./eschool-api
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+
+  web:
+    depends_on:
+      - db
+    container_name: eschool-web
+    build:
+      context: ./eschool-web
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80

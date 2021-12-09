@@ -1,0 +1,53 @@
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+
+}
+
+.logo2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #bbbbbc;
+    border-bottom: 1px solid #bbbbbc;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+
+.formNovaNoticia{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: black;
+    padding: 50px;
+
+    
+    form {
+        width: 800px;
+        > div{
+            margin-top: 15px;
+        }
+        a{
+            color: white;
+            text-decoration: underline;
+        }
+    }
+
+    .tox-statusbar__branding {
+        display: none;
+    }
+    
+
+
+    .btnSub{
+        display: flex;
+        margin: 40px auto;
+        background-color: transparent;
+        border-radius: 40px;
+    }
+}
+

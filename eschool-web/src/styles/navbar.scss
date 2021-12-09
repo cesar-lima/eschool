@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-text {
+    & + .navbar-text {
+        margin-left: 15px;
+    }
+}
+
+.bi-power {
+    margin-left: 15px;
+    cursor: pointer;
+}
